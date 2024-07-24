@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/CSS/inter.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio de sesión</title>
+    <script src="{% static 'assets/js/show-pass.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="cont">
+            <form action="/inis/" method="POST">
+                {% csrf_token %}
+                <img src="{% static 'assets/img/mlogo.png' %}" style="height: 20%; width: 20%;"><br>
+                <h3 class="hrcolor textob">Inicio sesión</h3>
+                <div class="textob">Nombre de Usuario</div>
+                <div>
+                    <input class="ini-input" name="nomusuario" id="usuario" type="text" placeholder="Usuario" required>
+                </div><br>
+                <div class="textob">Contraseña</div>
+                <div>
+                    <input class="ini-input" name="contrasenia" id="pass" type="password" placeholder="Contraseña" required>
+                </div>
+                <div>
+                    <input type="checkbox" name="show" id="iShow" onclick="togglePassword()">
+                    <label for="iShow">Ver contraseña</label>
+                </div>
+                <div class="hrcolor"></div>
+                <div class="centrar">
+                    <button class="ini-input" type="submit">Iniciar sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("pass");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

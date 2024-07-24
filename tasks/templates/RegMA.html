@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'assets/CSS/cont.css' %}"
+    />
+    <title>Autoregistro</title>
+  </head>
+  <body>
+    <div class="vertical">
+      <div class="cont">
+        <div>
+          <button type="button" onclick="location.href='{% url 'login' %}'">
+            volver
+          </button>
+        </div>
+        <br />
+        <div class="centrar">
+          <video id="video" width="440" height="300" autoplay></video>
+          <canvas id="canvas" style="display: none"></canvas>
+        </div>
+        <br />
+		<button id="capture">Capturar Asistencia</button>
+	</div>
+      <div class="cont">
+        <div class="centrar">
+          <img
+            src="{% static 'assets/img/genericst.jpg' %}"
+            style="
+              height: 300px;
+              width: 300px;
+              background-color: #0d0e1c;
+              border: none;
+              border-radius: 25px;
+            "
+          />
+        </div>
+        <div class="textob">
+          Nombres: <br />
+          Apellidos: <br />
+          DNI: <br />
+          Año escolar: <br />
+        </div>
+      </div>
+      <div class="cont">
+        <div class="textob centrar">Nombre del curso</div>
+        <hr />
+        <div class="estestudiantes">
+          <table class="estestudiantes">
+            <tr>
+              <th>Alumno</th>
+              <th>Estado</th>
+            </tr>
+            <tr>
+              <td>Alumno 1</td>
+              <td>Conectado</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+	<script>
+		const video = document.getElementById("video");
+  
+		if (navigator.mediaDevices.getUserMedia) {
+		  navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then(function (stream) {
+			  video.srcObject = stream;
+			})
+			.catch(function (err0r) {
+			  console.log("Algo salió mal al acceder a la cámara: " + err0r);
+			});
+		}
+  
+		function getCookie(name) {
+		  let cookieValue = null;
+		  if (document.cookie && document.cookie !== "") {
+			const cookies = document.cookie.split(";");
+			for (let i = 0; i < cookies.length; i++) {
+			  const cookie = cookies[i].trim();
+			  if (cookie.substring(0, name.length + 1) === name + "=") {
+				cookieValue = decodeURIComponent(
+				  cookie.substring(name.length + 1)
+				);
+				break;
+			  }
+			}
+		  }
+		  return cookieValue;
+		}
+  
+		const csrftoken = getCookie("csrftoken");
+  
+		const captureButton = document.getElementById("capture");
+		const canvas = document.getElementById("canvas");
+		captureButton.addEventListener("click", () => {
+		  const context = canvas.getContext("2d");
+		  canvas.width = video.videoWidth;
+		  canvas.height = video.videoHeight;
+		  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+		  const image_data = canvas.toDataURL("image/png");
+  
+		  fetch("/tasks/capturar/", {
+			method: "POST",
+			headers: {
+			  "Content-Type": "application/x-www-form-urlencoded",
+			  "X-CSRFToken": csrftoken,
+			},
+			body: `image_data=${encodeURIComponent(image_data)}`,
+		  })
+			.then((response) => response.json())
+			.then((data) => {
+			  alert(data.message);
+			})
+			.catch((error) => {
+			  console.error("Error al enviar la imagen: ", error);
+			});
+		});
+	  </script>
+  </body>
+  
+</html>

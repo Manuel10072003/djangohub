@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar estudiantes</title>
+    <script>
+        function setFormAction(actionUrl, method) {
+            var form = document.getElementById('mainForm');
+            console.log(actionUrl);
+            console.log(method);
+            form.action = actionUrl;
+            form.method = method;
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Código</th>
+            <th>Alumno</th>
+            <th colspan="2">Opciones</th>
+        </tr>
+        {% for x in Lista %}
+        <tr>
+            <td>{{x.idestudiante}}</td>
+            <td>{{x.apellidos}}, {{ x.nombres }}</td>
+            <td><button type="button" onclick="setFormAction('{% url 'ModificarEs' x.idestudiante %}', 'get')">Modificar</button></td>
+            <td><button type="button" onclick="setFormAction('{% url 'EliminarEs' x.idestudiante %}', 'post')">Eliminar</button></td>
+        </tr>
+        {% endfor %}
+        <form id="mainForm" style="diplay: none;">
+            {% csrf_token %}
+        </from>
+    </table>
+</body>
+</html>

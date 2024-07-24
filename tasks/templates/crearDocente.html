@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Docente</title>
+</head>
+<body>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <label for="Nombres">Nombres: </label>
+        <input type="text" name="Nombres" id="Nombres"><br>
+        
+        <label for="Apellidos">Apellidos: </label>
+        <input type="text" name="Apellidos" id="Apellidos"><br>
+        
+        <label for="FechaNacimiento">Fecha de nacimiento: </label>
+        <input type="date" name="FechaNacimiento" id="FechaNacimiento"><br>
+        
+        <label for="DNI">DNI: </label>
+        <input type="text" name="DNI" id="DNI" maxlength="8"><br>
+        
+        <label for="NumeroCelular">Número de celular: </label>
+        <input type="text" name="NumeroCelular" id="NumeroCelular"><br>
+
+        <label for="IdDocente">Contraseña del docente: </label>
+        <input type="text" name="Contrasenia" id="Contrasenia" required><br>
+        
+        <input type="submit" value="Agregar Docente">
+        
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asignar Docente</title>
+    <script>
+        function filterData() {
+            const seccion = document.getElementById("secciones").value;
+            window.location.href = `?seccion=${seccion}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Asignar Docente</h1>
+
+    <form method="post" action="{% url 'AsignarDocente' %}">
+        {% csrf_token %}
+        
+        <h2>Docentes</h2>
+        <select name="docente" id="docentes">
+            {% for docente in docentes %}
+                <option value="{{ docente.iddocente }}">{{ docente.iddocente }}</option>
+            {% endfor %}
+        </select>
+        
+        <h2>Secciones</h2>
+        <select name="seccion" id="secciones" onchange="filterData()">
+             {% for seccion in secciones %}
+        <option value="{{ seccion.idseccion }}" {% if seccion.idseccion|stringformat:"s" == selected_seccion|stringformat:"s" %}selected{% endif %}>{{ seccion.idseccion }}</option>
+            {% endfor %}
+        </select>
+        
+        <h2>Cursos</h2>
+        <select name="curso" id="cursos">
+            {% for curso in cursos %}
+                <option value="{{ curso.idcurso }}">{{ curso.idcurso }}</option>
+            {% endfor %}
+        </select>
+
+        <h2>Clases</h2>
+        <select name="clase" id="clases">
+            {% for clase in clases %}
+                <option value="{{ clase.idclase }}">{{ clase.idclase }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit">Asignar Docente</button>
+    </form>
+</body>
+</html>

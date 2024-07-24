@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Clase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Asignar Clase</h1>
+    <form action="{% url 'AsignarClase' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="IdClase">IdClase:</label>
+            <select id="IdClase" name="IdClase" required>
+                {% for clase in clases %}
+                    <option value="{{ clase.idclase }}">{{ clase.idclase }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="Fecha">Fecha:</label>
+            <input type="date" id="Fecha" name="Fecha" required>
+        </div>
+        <div>
+            <label for="Hora">Hora:</label>
+            <select id="Hora" name="Hora" required>
+                <option value="03:00">03:00 - 03:45</option>
+                <option value="03:45">03:45 - 04:30</option>
+                <option value="04:30">04:30 - 05:15</option>
+                <option value="05:15">05:15 - 06:00</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Guardar</button>
+        </div>
+    </form>
+</body>
+</html>

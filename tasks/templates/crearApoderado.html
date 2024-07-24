@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Apoderado</title>
+</head>
+<body>
+    <form method="POST" action="{% url 'CrearApoderado' %}">
+        {% csrf_token %}
+        <label for="Nombres">Nombres: </label><input type="text" name="Nombres" id="Nombres" required><br>
+        <label for="Apellidos">Apellidos: </label><input type="text" name="Apellidos" id="Apellidos" required><br>
+        <label for="FechaNacimiento">Fecha de nacimiento: </label><input type="date" name="FechaNacimiento" id="FechaNacimiento" required><br>
+        <label for="DNI">DNI: </label><input type="text" name="DNI" id="DNI" maxlength="8" required><br>
+        <label for="telefono">Número de celular: </label><input type="text" name="telefono" id="telefono" maxlength="9" required><br>
+        <input type="submit" value="Agregar Apoderado">
+    </form>
+</body>
+</html>

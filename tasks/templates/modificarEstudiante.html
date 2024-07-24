@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar</title>
+</head>
+<body>
+    <h1>{{ Estudiante.idestudiante }}</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="Nombres"></label>Nombres: <input type="text" value="{{Estudiante.nombres}}" name="Nombres" id="Nombres"><br>
+        <label>Apellidos: <input type="text" value="{{Estudiante.apellidos}}" name="Apellidos"></label><br>
+        <label>Fecha de nacimiento: <input type="date" value="{{Estudiante.fechanacimiento}}" name="FechaNacimiento"></label><br>
+        <label>DNI: <input type="text" value="{{Estudiante.dni}}" name="DNI" maxlength="8"></label><br>
+        <label for="Anio">Año escolar: <input type="text" value="{{Estudiante.anioescolar}}" name="Anio" id="Anio"></label><br>
+        <label>Foto del alumno: <input type="file" name="Foto" accept="image/*"></label><br>
+        <input type="submit">
+    </from>
+</body>
+</html>
